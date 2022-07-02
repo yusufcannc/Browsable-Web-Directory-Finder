@@ -11,3 +11,6 @@ Then BrowsableFinder is ready to use.
 ```python3 BrowsableFinder.py -f url.txt```
 
 Note: The urls in url.txt must start with http or https.
+
+
+> Thanks to Faruk and Kaan for their help.
