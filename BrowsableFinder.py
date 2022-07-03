@@ -139,6 +139,8 @@ class AllGetLink:
                                 pass
                             else:
                                 self.paths.append(res)
+                elif link.get("src").startswith("data:"):
+                    pass
                 else:
                     firstPath = link.get("src").split("/")
                     if firstPath in self.paths:
