@@ -161,7 +161,7 @@ class AllGetLink:
             req = requests.get(url + i)
             html = BeautifulSoup(req.text, "html.parser")
             if "Index of" in str(html.title):
-                print("Found Index of" + url + i)
+                print("Found Index of " + url + i)
             else:
                 pass
 
