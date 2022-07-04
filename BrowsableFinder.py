@@ -26,23 +26,50 @@ class AllGetLink:
 
     def getReq(self):
         for url in self.urls:
-            try:
-                self.extract = tldextract.extract(url)
-                self.domain = (
-                    self.extract.domain
-                )  # The reason for separating domains is to search only for this domain in links and scripts.
-                req = requests.get(url, timeout=5)
-                soup = BeautifulSoup(req.content, "html.parser")
-                self.getCSSLinks(soup)
-                self.getJSlinks(soup)
-                self.getImg(soup)
-                self.pathRequests(url)
-
-                self.paths.clear()
-            except requests.exceptions.ConnectionError:
-                pass
-            except requests.exceptions.ReadTimeout:
-                pass
+                try:
+                    self.extract = tldextract.extract(url)
+                    self.domain = (
+                        self.extract.domain
+                    )  # The reason for separating domains is to search only for this domain in links and scripts.
+                    req = requests.get(url, timeout=5, verify=False)
+                    soup = BeautifulSoup(req.content, "html.parser")
+                    redirectFind = soup.find("meta",attrs={"http-equiv":"refresh"})
+                    redirect_re = re.compile('<meta[^>]*?url=(.*?)["\']', re.IGNORECASE)
+                    match = redirect_re.search(str(redirectFind))
+                    try:
+                        if match:
+                            new_url =  url + "/" + match.groups()[0].strip()
+                        
+                            req_refresh = requests.get(new_url, timeout=5, verify=False)
+                            soup_refresh = BeautifulSoup(req_refresh.content, "html.parser")
+                            if "Index of" in str(soup_refresh.title):
+                                print("Found Index of " + new_url)
+                            else:
+                                self.getCSSLinks(soup_refresh)
+                                self.getJSlinks(soup_refresh)
+                                self.getImg(soup_refresh)
+                                self.pathRequests(url)
+                                self.paths.clear()
+                    
+                        else:
+                            if "Index of" in str(soup.title):
+                                print("Found Index of " + url)
+                            else:
+                                self.getCSSLinks(soup)
+                                self.getJSlinks(soup)
+                                self.getImg(soup)
+                                self.pathRequests(url)
+                                self.paths.clear()
+                    except AttributeError:
+                        pass
+                except requests.exceptions.ConnectionError as err:
+                    print(err)
+                except requests.exceptions.ReadTimeout as err:
+                    print(err)
+                except requests.exceptions.TooManyRedirects as err:
+                    print(err)
+                except requests.exceptions.InvalidURL as err:
+                    print(err)
 
     def getCSSLinks(self, url):
         for link in url.find_all("link"):
