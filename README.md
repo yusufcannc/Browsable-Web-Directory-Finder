@@ -19,7 +19,7 @@ Then BrowsableFinder is ready to use.
 
 ```python3 BrowsableFinder.py -f url.txt```
 
-![enter image description here](https://i.ibb.co/kHqGN7f/Untitled.png)
+![enter image description here](https://i.ibb.co/s3rN8mg/Untitled.png)
 
 Note: The urls in url.txt must start with http or https.
 
