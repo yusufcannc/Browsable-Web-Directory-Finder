@@ -11,7 +11,7 @@ BrowsableFinder tries to extract the paths in the "link", "script" and "img" tag
 
 First you need to install the libraries in the requirements file.
 
-```pip install -r requirements```
+```pip install -r requirements.txt```
 
 Then BrowsableFinder is ready to use.
 
