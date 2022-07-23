@@ -1,6 +1,5 @@
 import argparse
-
-
+import re
 import requests
 import tldextract
 import urllib3
@@ -63,13 +62,13 @@ class AllGetLink:
                     except AttributeError:
                         pass
                 except requests.exceptions.ConnectionError as err:
-                    print(err)
+                    pass
                 except requests.exceptions.ReadTimeout as err:
-                    print(err)
+                    pass
                 except requests.exceptions.TooManyRedirects as err:
-                    print(err)
+                    pass
                 except requests.exceptions.InvalidURL as err:
-                    print(err)
+                    pass
 
     def getCSSLinks(self, url):
         for link in url.find_all("link"):
