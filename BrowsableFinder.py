@@ -1,5 +1,6 @@
 import argparse
 import re
+from time import sleep
 import requests
 import tldextract
 import urllib3
@@ -41,7 +42,7 @@ class AllGetLink:
                         
                             req_refresh = requests.get(new_url, timeout=5, verify=False)
                             soup_refresh = BeautifulSoup(req_refresh.content, "html.parser")
-                            if "Index of" in str(soup_refresh.title):
+                            if "Index of" in str(soup_refresh.title)  or  "[PARENTDIR]" in str(soup_refresh):
                                 print("Found Index of " + new_url)
                             else:
                                 self.getCSSLinks(soup_refresh)
@@ -186,13 +187,13 @@ class AllGetLink:
 
     def pathRequests(self, url):
         for i in self.paths:
-            req = requests.get(url + i)
+            req = requests.get(url + i, verify=False)
+            
             html = BeautifulSoup(req.text, "html.parser")
-            if "Index of" in str(html.title):
+            if  "Index of" in str(html.title) or  "[PARENTDIR]" in str(html):
                 print("Found Index of " + url + i)
             else:
                 pass
-
 
 if __name__ == "__main__":
     app = AllGetLink()
