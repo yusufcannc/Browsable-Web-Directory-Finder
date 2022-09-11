@@ -31,7 +31,7 @@ class AllGetLink:
                     )  # The reason for separating domains is to search only for this domain in links and scripts.
                     req = requests.get(url, timeout=5, verify=False)
                     soup = BeautifulSoup(req.content, "html.parser")
-                    redirectFind = soup.find("meta",attrs={"http-equiv":"refresh"})
+                    redirectFind = soup.find("meta", attrs={"http-equiv":"refresh"})
                     redirect_re = re.compile('<meta[^>]*?url=(.*?)["\']', re.IGNORECASE)
                     match = redirect_re.search(str(redirectFind))
                     try:
