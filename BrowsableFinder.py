@@ -8,8 +8,6 @@ import tldextract
 import urllib3
 from bs4 import BeautifulSoup
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import time
-start = time.time()
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -232,4 +230,3 @@ class AllGetLink:
 
 if __name__ == '__main__':
     app = AllGetLink()
-    print(time.time() - start)
