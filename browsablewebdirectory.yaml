@@ -2,7 +2,7 @@ id: browsable-web-directory
 
 info:
   name: Browsable Web Directory
-  author: yusufcannc
+  author: Yusuf Can Çakır
   severity: info
   description: Web servers may register to list the contents of directories that do not have an index page. In this case, threat actors can quickly obtain data about the target. These files can be sensitive files, important information about the company, and password information.
   tags: browsable-web-directory
@@ -18,7 +18,7 @@ requests:
         part: body
         regex:
           - '(\.*(?i)\bIndex Of\b.)'
-          - '(\.*(?i)\b[PARENTDIR]\b.)'
+          - '(\.*(?i)\bPARENTDIR\b.)'
           - '(\.*(?i)\bparent directory\b.)'
           
 
