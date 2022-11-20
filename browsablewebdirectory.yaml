@@ -1,0 +1,25 @@
+id: browsable-web-directory
+
+info:
+  name: Improper Error Page
+  author: yusufcannc
+  severity: info
+  description: Improper Error Pages are unstructured error pages. These error pages can contain important information about servers or websites.
+  tags: browsable-web-directory
+
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}"
+    extractors:
+      - type: regex
+        name: browsable-web-directory
+        part: body
+        regex:
+          - '(\.*(?i)\bIndex Of\b.)'
+          - '(\.*(?i)\b[PARENTDIR]\b.)'
+          - '(\.*(?i)\bparent directory\b.)'
+          
+
+          
